@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Glow Nails Boutique</title>
+
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at top left, rgba(245,215,110,0.10), transparent 24%),
+                        radial-gradient(circle at bottom right, rgba(212,175,55,0.10), transparent 24%),
+                        #0b0b0f;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            line-height: 1.6;
+            overflow-x: hidden;
+            isolation: isolate;
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.16;
+            pointer-events: none;
+            z-index: -1;
+            animation: floatGlow 10s ease-in-out infinite alternate;
+        }
+
+        body::before {
+            top: calc(-70px + var(--parallax, 0px));
+            left: calc(-60px - var(--parallax, 0px));
+            background: #d4af37;
+        }
+
+        body::after {
+            bottom: calc(-80px - var(--parallax, 0px));
+            right: calc(-60px + var(--parallax, 0px));
+            background: #f5d76e;
+            animation-delay: -4s;
+        }
+
+        @keyframes floatGlow {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(20px, 24px) scale(1.08); }
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
+            background: rgba(6, 6, 10, 0.65);
+        }
+
+        header h1 {
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            font-weight: 700;
+            margin: 0 0 12px;
+            background: linear-gradient(90deg, #d4af37, #f5d76e, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(245,215,110,0.4), 0 0 20px rgba(212,175,55,0.3);
+            animation: goldShine 4s linear infinite;
+        }
+
+        @keyframes goldShine {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* MENÚ */
+        nav {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px 12px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid rgba(212,175,55,0.4);
+            color: #f5d76e;
+            font-size: 1.3rem;
+            padding: 8px 10px;
+            border-radius: 10px;
+            margin: 10px auto 0;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px 12px;
+        }
+
+        .nav-links a {
+            color: #f5b301;
+            text-decoration: none;
+            margin: 0;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, #d4af37, #f5d76e);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: #fff;
+            text-shadow: 0 0 8px rgba(245,215,110,0.8),
+                         0 0 12px rgba(245,215,110,0.6);
+            transform: scale(1.08);
+        }
+
+        /* CONTENIDO */
+        .contenedor {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 0 20px 40px;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            display: grid;
+            place-items: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 10px 24px rgba(18, 140, 126, 0.35);
+            z-index: 1000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.08);
+            box-shadow: 0 14px 28px rgba(18, 140, 126, 0.45);
+        }
+
+        h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2.2rem, 4vw, 3rem);
+            color: #d4af37;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .categoria {
+            margin-bottom: 40px;
+        }
+
+        .categoria h3 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem;
+            color: #f5d76e;
+            margin-bottom: 10px;
+            text-shadow: 0 0 8px rgba(245,215,110,0.4);
+        }
+
+        .categoria p {
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        /* TARJETAS DEL BLOG */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .post {
+            background: #111;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            padding: 18px;
+            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .post::before {
+            content: "✦";
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            color: #d4af37;
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        .post:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 0 18px rgba(212,175,55,0.4);
+            border-color: rgba(245,215,110,0.6);
+        }
+
+        .post h4 {
+            font-size: 1.2rem;
+            color: #f5d76e;
+            margin-bottom: 8px;
+        }
+
+        .post p {
+            color: #ccc;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .leer-mas {
+            display: inline-block;
+            margin-top: 10px;
+            color: #d4af37;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .leer-mas:hover {
+            color: #fff;
+            text-shadow: 0 0 8px rgba(245,215,110,0.8);
+        }
+
+        /* MODAL ARTÍCULO */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 900;
+        }
+
+        .modal {
+            max-width: 700px;
+            width: 90%;
+            background: #111;
+            border-radius: 16px;
+            padding: 24px 26px;
+            box-shadow: 0 0 25px rgba(212,175,55,0.5);
+            position: relative;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #f5d76e;
+            transition: 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: #fff;
+            text-shadow: 0 0 8px rgba(245,215,110,0.8);
+        }
+
+        .modal h3 {
+            font-size: 1.5rem;
+            color: #f5d76e;
+            margin-bottom: 12px;
+        }
+
+        .modal p {
+            color: #ddd;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* GLITTER FINO */
+        #glitter-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 950;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                gap: 10px;
+                padding-top: 10px;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            header {
+                padding: 18px 14px;
+            }
+
+            .contenedor {
+                padding: 0 14px 30px;
+            }
+
+            .blog-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 16px;
+            }
+
+            .post {
+                padding: 16px;
+            }
+
+            .modal {
+                width: 94%;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .categoria h3 {
+                font-size: 1.75rem;
+            }
+
+            .post h4 {
+                font-size: 1.05rem;
+            }
+        }
+
+        .footer-copy {
+            text-align: center;
+            padding: 24px 16px 36px;
+            color: #c9b26b;
+            font-size: 0.9rem;
+            letter-spacing: 0.04em;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .footer-copy::before {
+            content: "✿";
+            display: block;
+            margin: 0 auto 10px;
+            color: #f5d76e;
+            font-size: 1rem;
+            opacity: 0.85;
+        }
+
+        .footer-copy strong {
+            color: #f5d76e;
+        }
+    </style>
+</head>
+
+<body>
+
+<button class="scroll-top" aria-label="Volver arriba">↑</button>
+<a class="whatsapp-float glow-on-hover" href="https://wa.me/34600000000" target="_blank" aria-label="Contactar por WhatsApp">✆</a>
+
+<header>
+    <h1>GLOW NAILS BOUTIQUE</h1>
+    <button class="menu-toggle" aria-label="Abrir menú">☰</button>
+    <nav class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="galeria.html">Galería</a>
+        <a href="sobremi.html">Sobre mí</a>
+        <a href="blog.html">Blog</a>
+        <a href="citas.html">Citas</a>
+    </nav>
+</header>
+
+<canvas id="glitter-canvas"></canvas>
+
+<div class="contenedor">
+
+    <h2 class="reveal">Blog</h2>
+
+    <!-- CUIDADO DE UÑAS -->
+    <div class="categoria reveal">
+        <h3>Cuidado de uñas</h3>
+        <p>Consejos sencillos y efectivos para mantener tus uñas sanas, fuertes y bonitas en el día a día.</p>
+
+        <div class="blog-grid">
+            <div class="post" data-article="1">
+                <h4>Errores comunes que dañan tus uñas sin darte cuenta</h4>
+                <p>Pequeños hábitos que parecen inofensivos pueden debilitar mucho tus uñas...</p>
+                <span class="leer-mas">Leer artículo →</span>
+            </div>
+
+            <div class="post" data-article="2">
+                <h4>Cómo cuidar tus uñas después de una manicura</h4>
+                <p>Unos pocos cuidados después de la manicura pueden duplicar su duración...</p>
+                <span class="leer-mas">Leer artículo →</span>
+            </div>
+
+            <div class="post" data-article="3">
+                <h4>Cómo fortalecer uñas débiles o quebradizas</h4>
+                <p>Si tus uñas se rompen con facilidad, estos gestos pueden ayudarte mucho...</p>
+                <span class="leer-mas">Leer artículo →</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TENDENCIAS -->
+    <div class="categoria reveal">
+        <h3>Tendencias</h3>
+        <p>Inspiración actual para llevar tus uñas siempre a la moda, sin perder elegancia.</p>
+
+        <div class="blog-grid">
+            <div class="post" data-article="4">
+                <h4>Tendencias de uñas 2024–2025</h4>
+                <p>Baby boomer, efecto glaseado y tonos nude premium siguen siendo protagonistas...</p>
+                <span class="leer-mas">Leer artículo →</span>
+            </div>
+
+            <div class="post" data-article="5">
+                <h4>Los colores más elegantes para cualquier temporada</h4>
+                <p>Hay tonos que nunca fallan y combinan con todo, en cualquier época del año...</p>
+                <span class="leer-mas">Leer artículo →</span>
+            </div>
+
+            <div class="post" data-article="6">
+                <h4>Diseños minimalistas que siempre quedan bien</h4>
+                <p>Líneas finas, puntos dorados y degradados suaves para un look discreto pero sofisticado...</p>
+                <span class="leer-mas">Leer artículo →</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TÉCNICAS Y FORMAS -->
+    <div class="categoria reveal">
+        <h3>Técnicas y formas</h3>
+        <p>Información clara para entender cada técnica y elegir la forma de uña que mejor te representa.</p>
+
+        <div class="blog-grid">
+            <div class="post" data-article="7">
+                <h4>¿Acrílico, gel o semipermanente? Diferencias reales</h4>
+                <p>Cada técnica tiene sus ventajas según tu estilo de vida y lo que buscas...</p>
+                <span class="leer-mas">Leer artículo →</span>
+            </div>
+
+            <div class="post" data-article="8">
+                <h4>Cómo elegir la forma de uña perfecta para tu mano</h4>
+                <p>Almendra, cuadrada, coffin o redonda: te cuento cuál favorece más según tus manos...</p>
+                <span class="leer-mas">Leer artículo →</span>
+            </div>
+
+            <div class="post" data-article="9">
+                <h4>Qué es la cutícula rusa y por qué se usa tanto</h4>
+                <p>Una técnica de limpieza profunda que deja un acabado impecable y muy duradero...</p>
+                <span class="leer-mas">Leer artículo →</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCTOS RECOMENDADOS -->
+    <div class="categoria reveal">
+        <h3>Productos recomendados</h3>
+        <p>Lo esencial para cuidar tus uñas en casa con productos sencillos pero efectivos.</p>
+
+        <div class="blog-grid">
+            <div class="post" data-article="10">
+                <h4>Productos básicos para cuidar tus uñas en casa</h4>
+                <p>Con unos pocos productos bien elegidos puedes mantener tus uñas perfectas entre manicuras...</p>
+                <span class="leer-mas">Leer artículo →</span>
+            </div>
+
+            <div class="post" data-article="11">
+                <h4>Aceites de cutícula: cuál elegir y por qué</h4>
+                <p>Los aceites adecuados hidratan, nutren y ayudan a que tu manicura dure más tiempo...</p>
+                <span class="leer-mas">Leer artículo →</span>
+            </div>
+
+            <div class="post" data-article="12">
+                <h4>Cómo elegir un buen top coat (y por qué importa)</h4>
+                <p>Un buen top coat protege el color, aporta brillo y alarga la vida de tu manicura...</p>
+                <span class="leer-mas">Leer artículo →</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal">
+        <span class="modal-close" id="modal-close">✕</span>
+        <h3 id="modal-title"></h3>
+        <p id="modal-content"></p>
+    </div>
+</div>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const scrollTop = document.querySelector('.scroll-top');
+    if (scrollTop) {
+        window.addEventListener('scroll', () => {
+            scrollTop.classList.toggle('show', window.scrollY > 350);
+            const offset = window.scrollY * 0.08;
+            document.body.style.setProperty('--parallax', `${offset}px`);
+        });
+        scrollTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }
+
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => navLinks.classList.remove('open'));
+        });
+    }
+
+    // TEXTOS COMPLETOS DE LOS ARTÍCULOS
+    const articles = {
+        1: {
+            title: "Errores comunes que dañan tus uñas sin darte cuenta",
+            content: "Muchas veces pensamos que nuestras uñas están débiles “porque sí”, pero la realidad es que hay pequeños hábitos que las dañan sin que lo notemos. Morderlas, usarlas como herramienta para abrir cosas, retirar el esmalte arrancándolo en lugar de usar quitaesmalte o no hidratar la cutícula son algunos de los errores más frecuentes. También influye limar siempre en varias direcciones o usar limas demasiado agresivas. Con pequeños cambios, como limar siempre en una sola dirección, hidratar la cutícula a diario y evitar golpes innecesarios, puedes mejorar muchísimo la salud y el aspecto de tus uñas."
+        },
+        2: {
+            title: "Cómo cuidar tus uñas después de una manicura",
+            content: "Después de una manicura profesional, tus uñas necesitan un mínimo de cuidados para que duren perfectas. Las primeras horas es mejor evitar el agua muy caliente y los productos agresivos. Usar aceite de cutícula a diario ayuda a mantener la zona hidratada y flexible, evitando que el esmalte se levante. También es importante no utilizar las uñas como herramienta para abrir envases o rascar superficies duras. Si además aplicas una crema de manos nutritiva y proteges tus manos cuando uses productos de limpieza, tu manicura puede durar hasta el doble de tiempo."
+        },
+        3: {
+            title: "Cómo fortalecer uñas débiles o quebradizas",
+            content: "Las uñas frágiles suelen deberse a falta de hidratación, productos agresivos o golpes repetidos. La clave está en hidratar, proteger y no sobrecargar. Un aceite nutritivo aplicado cada noche, junto con una crema de manos rica en ingredientes reparadores, puede marcar una gran diferencia. Es mejor evitar endurecedores muy agresivos y optar por bases fortalecedoras suaves. También ayuda limar las uñas en una forma que reduzca los puntos de tensión, como la almendra suave o la redonda. Con constancia, tus uñas pueden ganar fuerza y resistencia."
+        },
+        4: {
+            title: "Tendencias de uñas 2024–2025",
+            content: "Los tonos nude premium, el baby boomer difuminado, el efecto glaseado y los diseños minimalistas siguen siendo los reyes de las tendencias. También vuelven con fuerza los tonos chocolate, el rojo vino y los detalles dorados en líneas finas o pequeños puntos. Las estructuras limpias y las cutículas muy cuidadas son protagonistas, dando un aspecto pulido y elegante. La idea es combinar sofisticación con comodidad, creando uñas que se vean impecables tanto en el día a día como en ocasiones especiales."
+        },
+        5: {
+            title: "Los colores más elegantes para cualquier temporada",
+            content: "Hay tonos que nunca fallan: nude rosado, beige cálido, rojo clásico, blanco lechoso y marrón suave. Son colores que combinan con todo y siempre se ven limpios y elegantes. En invierno, los tonos vino y chocolate aportan calidez; en verano, los nude luminosos y el blanco suave dan sensación de frescura. Si quieres un toque diferente sin perder elegancia, puedes añadir pequeños detalles dorados o un ligero degradado en la punta."
+        },
+        6: {
+            title: "Diseños minimalistas que siempre quedan bien",
+            content: "Líneas finas, puntos dorados, francesas muy delgadas y degradados suaves son diseños discretos pero muy sofisticados. Funcionan tanto en uñas cortas como largas y combinan con cualquier estilo de ropa. El minimalismo en uñas busca resaltar la limpieza y la estructura, sin recargar. Un solo detalle bien colocado puede transformar una manicura sencilla en algo especial y muy elegante."
+        },
+        7: {
+            title: "¿Acrílico, gel o semipermanente? Diferencias reales",
+            content: "El acrílico es muy resistente y duradero, ideal para quienes necesitan uñas fuertes y estructuradas. El gel es más flexible y suele dar un aspecto muy natural, perfecto para quienes buscan comodidad y estética a la vez. El semipermanente es ideal para quienes quieren algo rápido, ligero y sin grandes cambios de longitud. Cada técnica tiene sus ventajas según tu estilo de vida, tu tipo de uña y el resultado que buscas. Lo importante es elegir con asesoramiento profesional para cuidar la salud de tus uñas."
+        },
+        8: {
+            title: "Cómo elegir la forma de uña perfecta para tu mano",
+            content: "La forma ideal depende de tus dedos, tu estilo y tu día a día. La almendra estiliza la mano y da un aspecto elegante; la cuadrada es clásica y muy estable; la coffin aporta un toque moderno y sofisticado; la redonda es cómoda y práctica para el día a día. Si tus dedos son muy finos, una forma ligeramente cuadrada o almendrada puede equilibrar. Si tus manos son pequeñas, las formas suaves y no demasiado largas suelen favorecer más."
+        },
+        9: {
+            title: "Qué es la cutícula rusa y por qué se usa tanto",
+            content: "La cutícula rusa es una técnica de limpieza profunda de la zona de la cutícula, realizada con herramientas específicas y formación profesional. Permite retirar el exceso de piel y dejar un contorno muy limpio, lo que hace que el esmalte quede más cerca de la cutícula y se vea impecable durante más tiempo. Es una técnica muy precisa que requiere experiencia, pero los resultados son espectaculares: uñas más pulidas, limpias y elegantes."
+        },
+        10: {
+            title: "Productos básicos para cuidar tus uñas en casa",
+            content: "Con unos pocos productos bien elegidos puedes mantener tus uñas perfectas entre manicuras. Un aceite de cutícula, una lima suave, una crema de manos nutritiva, un buen top coat y un jabón no agresivo son suficientes para un cuidado diario efectivo. Usarlos con constancia ayuda a que tus uñas se mantengan hidratadas, protegidas y con mejor aspecto, incluso cuando no llevas esmalte."
+        },
+        11: {
+            title: "Aceites de cutícula: cuál elegir y por qué",
+            content: "Los mejores aceites de cutícula suelen contener ingredientes como jojoba, almendra dulce o vitamina E. Estos componentes hidratan, nutren y ayudan a que la piel alrededor de la uña se mantenga flexible y saludable. Aplicar aceite de cutícula a diario mejora la apariencia de las manos y ayuda a que la manicura dure más, ya que la zona no se reseca ni se agrieta con tanta facilidad."
+        },
+        12: {
+            title: "Cómo elegir un buen top coat (y por qué importa)",
+            content: "Un buen top coat protege el color, aporta brillo y evita que el esmalte se desgaste demasiado rápido. Los top coat de acabado gel, sin capa pegajosa y con protección UV suelen dar mejores resultados. Además de mejorar el aspecto, alargan la vida de la manicura y ayudan a que las uñas se vean más pulidas y profesionales. Es un producto pequeño, pero con mucha importancia en el resultado final."
+        }
+    };
+
+    // MODAL LÓGICA
+    const modalOverlay = document.getElementById("modal-overlay");
+    const modalTitle = document.getElementById("modal-title");
+    const modalContent = document.getElementById("modal-content");
+    const modalClose = document.getElementById("modal-close");
+
+    document.querySelectorAll(".post").forEach(post => {
+        post.addEventListener("click", () => {
+            const id = post.getAttribute("data-article");
+            const article = articles[id];
+            if (article) {
+                modalTitle.textContent = article.title;
+                modalContent.textContent = article.content;
+                modalOverlay.style.display = "flex";
+            }
+        });
+    });
+
+    modalClose.addEventListener("click", () => {
+        modalOverlay.style.display = "none";
+    });
+
+    modalOverlay.addEventListener("click", (e) => {
+        if (e.target === modalOverlay) {
+            modalOverlay.style.display = "none";
+        }
+    });
+
+    // GLITTER FINO AL ENTRAR
+    const canvas = document.getElementById("glitter-canvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let animationFrame;
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    function createParticles() {
+        particles = [];
+        const count = 120; // glitter fino
+        for (let i = 0; i < count; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * -canvas.height,
+                size: Math.random() * 2 + 1,
+                speedY: Math.random() * 2 + 1,
+                alpha: Math.random() * 0.6 + 0.2
+            });
+        }
+    }
+
+    function drawParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(245,215,110,${p.alpha})`;
+            ctx.fill();
+        });
+    }
+
+    function updateParticles() {
+        particles.forEach(p => {
+            p.y += p.speedY;
+            p.alpha -= 0.005;
+        });
+        particles = particles.filter(p => p.y < canvas.height && p.alpha > 0);
+    }
+
+    function animateGlitter() {
+        drawParticles();
+        updateParticles();
+        if (particles.length > 0) {
+            animationFrame = requestAnimationFrame(animateGlitter);
+        } else {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+    }
+
+    window.addEventListener("load", () => {
+        createParticles();
+        animateGlitter();
+        // Se desactiva el canvas cuando termina
+        setTimeout(() => {
+            cancelAnimationFrame(animationFrame);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }, 3500);
+    });
+</script>
+
+    <footer class="footer-copy">
+        <strong>© 2026 Glow Nails Boutique</strong> · Todos los derechos reservados.
+    </footer>
+</body>
+</html>

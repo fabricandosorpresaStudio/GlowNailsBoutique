@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería - Glow Nails Boutique</title>
+
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at top left, rgba(245,215,110,0.10), transparent 24%),
+                        radial-gradient(circle at bottom right, rgba(212,175,55,0.10), transparent 24%),
+                        #0b0b0f;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            isolation: isolate;
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.16;
+            pointer-events: none;
+            z-index: -1;
+            animation: floatGlow 10s ease-in-out infinite alternate;
+        }
+
+        body::before {
+            top: calc(-70px + var(--parallax, 0px));
+            left: calc(-60px - var(--parallax, 0px));
+            background: #d4af37;
+        }
+
+        body::after {
+            bottom: calc(-80px - var(--parallax, 0px));
+            right: calc(-60px + var(--parallax, 0px));
+            background: #f5d76e;
+            animation-delay: -4s;
+        }
+
+        @keyframes floatGlow {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(20px, 24px) scale(1.08); }
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
+            background: rgba(6, 6, 10, 0.65);
+        }
+
+        header h1 {
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            font-weight: 700;
+            margin: 0 0 12px;
+            background: linear-gradient(90deg, #d4af37, #f5d76e, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(245,215,110,0.4), 0 0 20px rgba(212,175,55,0.3);
+            animation: goldShine 4s linear infinite;
+        }
+
+        @keyframes goldShine {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* MENÚ CON ANIMACIÓN DORADA */
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid rgba(212,175,55,0.4);
+            color: #f5d76e;
+            font-size: 1.3rem;
+            padding: 8px 10px;
+            border-radius: 10px;
+            margin: 10px auto 0;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px 12px;
+        }
+
+        .nav-links a {
+            color: #f5b301;
+            text-decoration: none;
+            margin: 0;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, #d4af37, #f5d76e);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: #fff;
+            text-shadow: 0 0 8px rgba(245, 215, 110, 0.8),
+                         0 0 12px rgba(245, 215, 110, 0.6);
+            transform: scale(1.08);
+        }
+
+        h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2rem, 4vw, 2.6rem);
+            color: #d4af37;
+            text-align: center;
+            margin-top: 40px;
+            padding: 0 12px;
+        }
+
+        .categoria {
+            margin: 50px auto;
+            max-width: 1100px;
+            padding: 0 20px;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            display: grid;
+            place-items: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 10px 24px rgba(18, 140, 126, 0.35);
+            z-index: 1000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.08);
+            box-shadow: 0 14px 28px rgba(18, 140, 126, 0.45);
+        }
+
+        .categoria h3 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem;
+            color: #f5d76e;
+            margin-bottom: 20px;
+            text-shadow: 0 0 8px rgba(245,215,110,0.4);
+        }
+
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .foto {
+            position: relative;
+            overflow: hidden;
+            border-radius: 14px;
+            border: 1px solid rgba(212,175,55,0.3);
+            box-shadow: 0 0 12px rgba(212,175,55,0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .foto img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            transition: .3s ease;
+        }
+
+        .foto:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 10px 24px rgba(212,175,55,0.22);
+            border-color: rgba(245,215,110,0.7);
+        }
+
+        .foto:hover img {
+            opacity: 0.35;
+        }
+
+        .foto .texto {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #f5d76e;
+            opacity: 0;
+            transition: .3s ease;
+            text-shadow: 0 0 6px rgba(212,175,55,0.4);
+        }
+
+        .foto:hover .texto {
+            opacity: 1;
+        }
+
+        /* LIGHTBOX */
+        #lightbox {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(245,215,110,0.4);
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                gap: 10px;
+                padding-top: 10px;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            header {
+                padding: 18px 14px;
+            }
+
+            .categoria {
+                padding: 0 14px;
+            }
+
+            .galeria-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 16px;
+            }
+
+            .foto img {
+                height: 220px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .galeria-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .categoria h3 {
+                font-size: 1.75rem;
+            }
+
+            #lightbox img {
+                max-width: 96%;
+                max-height: 96%;
+            }
+        }
+
+        .footer-copy {
+            text-align: center;
+            padding: 24px 16px 36px;
+            color: #c9b26b;
+            font-size: 0.9rem;
+            letter-spacing: 0.04em;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .footer-copy::before {
+            content: "✿";
+            display: block;
+            margin: 0 auto 10px;
+            color: #f5d76e;
+            font-size: 1rem;
+            opacity: 0.85;
+        }
+
+        .footer-copy strong {
+            color: #f5d76e;
+        }
+    </style>
+
+    <script>
+        function abrirLightbox(src) {
+            document.getElementById("lightbox-img").src = src;
+            document.getElementById("lightbox").style.display = "flex";
+        }
+
+        function cerrarLightbox() {
+            document.getElementById("lightbox").style.display = "none";
+        }
+    </script>
+</head>
+
+<body>
+
+<button class="scroll-top" aria-label="Volver arriba">↑</button>
+<a class="whatsapp-float glow-on-hover" href="https://wa.me/34600000000" target="_blank" aria-label="Contactar por WhatsApp">✆</a>
+
+<header>
+    <h1>GLOW NAILS BOUTIQUE</h1>
+    <button class="menu-toggle" aria-label="Abrir menú">☰</button>
+    <nav class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="galeria.html">Galería</a>
+        <a href="sobremi.html">Sobre mí</a>
+        <a href="blog.html">Blog</a>
+        <a href="citas.html">Citas</a>
+    </nav>
+</header>
+
+<h2 class="reveal">Galería de trabajos</h2>
+
+<!-- SEMIPERMANENTE -->
+<div class="categoria reveal">
+    <h3>Semipermanente</h3>
+    <div class="galeria-grid">
+        <div class="foto" onclick="abrirLightbox('semi1.jpg')">
+            <img src="semi1.jpg"><div class="texto">Francesa</div>
+        </div>
+        <div class="foto" onclick="abrirLightbox('semi2.jpg')">
+            <img src="semi2.jpg"><div class="texto">Nude empolvado</div>
+        </div>
+        <div class="foto" onclick="abrirLightbox('semi3.jpg')">
+            <img src="semi3.jpg"><div class="texto">Glitter fino</div>
+        </div>
+    </div>
+</div>
+
+<!-- ACRÍLICAS / GEL -->
+<div class="categoria reveal">
+    <h3>Acrílicas / Gel</h3>
+    <div class="galeria-grid">
+        <div class="foto" onclick="abrirLightbox('gel1.jpg')">
+            <img src="gel1.jpg"><div class="texto">Baby boomer</div>
+        </div>
+        <div class="foto" onclick="abrirLightbox('gel2.jpg')">
+            <img src="gel2.jpg"><div class="texto">Almendra largas</div>
+        </div>
+        <div class="foto" onclick="abrirLightbox('gel3.jpg')">
+            <img src="gel3.jpg"><div class="texto">Gel constructor</div>
+        </div>
+    </div>
+</div>
+
+<!-- NAIL ART -->
+<div class="categoria reveal">
+    <h3>Nail Art</h3>
+    <div class="galeria-grid">
+        <div class="foto" onclick="abrirLightbox('art1.jpg')">
+            <img src="art1.jpg"><div class="texto">Líneas doradas</div>
+        </div>
+        <div class="foto" onclick="abrirLightbox('art2.jpg')">
+            <img src="art2.jpg"><div class="texto">Encapsuladas</div>
+        </div>
+        <div class="foto" onclick="abrirLightbox('art3.jpg')">
+            <img src="art3.jpg"><div class="texto">Mármol</div>
+        </div>
+    </div>
+</div>
+
+<!-- PEDICURA -->
+<div class="categoria reveal">
+    <h3>Pedicura</h3>
+    <div class="galeria-grid">
+        <div class="foto" onclick="abrirLightbox('pedi1.jpg')">
+            <img src="pedi1.jpg"><div class="texto">Clásica</div>
+        </div>
+        <div class="foto" onclick="abrirLightbox('pedi2.jpg')">
+            <img src="pedi2.jpg"><div class="texto">Spa</div>
+        </div>
+        <div class="foto" onclick="abrirLightbox('pedi3.jpg')">
+            <img src="pedi3.jpg"><div class="texto">Francesa</div>
+        </div>
+    </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="cerrarLightbox()">
+    <img id="lightbox-img" src="">
+</div>
+
+<script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => navLinks.classList.remove('open'));
+        });
+    }
+</script>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const scrollTop = document.querySelector('.scroll-top');
+    if (scrollTop) {
+        window.addEventListener('scroll', () => {
+            scrollTop.classList.toggle('show', window.scrollY > 350);
+            const offset = window.scrollY * 0.08;
+            document.body.style.setProperty('--parallax', `${offset}px`);
+        });
+        scrollTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }
+</script>
+
+    <footer class="footer-copy">
+        <strong>© 2026 Glow Nails Boutique</strong> · Todos los derechos reservados.
+    </footer>
+</body>
+</html>
